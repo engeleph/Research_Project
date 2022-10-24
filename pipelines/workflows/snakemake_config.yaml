@@ -1,0 +1,21 @@
+# processing params
+fasta_dir: "/home/philipp/readfish_modified/pipelines/workflows/data/fasta_files" # directory with files to process
+base_output_dir: "/home/philipp/readfish_modified/pipelines/workflows/outputs/pipeline_1664273040.171674"
+output_dir: "/home/philipp/readfish_modified/pipelines/workflows/outputs"
+K: 31
+
+# for building a new graph
+# bloom filter params
+bloom_num_hash_fcns: 6
+bloom_filter_size_exp: 20
+#
+# for computing statistics of merged graphs
+ref_data: "/home/philipp/readfish_modified/pipelines/workflows/data/ref_data/chr_22_updated.fa"
+ref_dir: "/home/philipp/readfish_modified/pipelines/workflows/data/ref_data"
+splitted_data: "/home/philipp/readfish_modified/pipelines/workflows/data/ref_data/splitted_sequence.fa"
+ref_graph_path: "/home/philipp/readfish_modified/pipelines/workflows/outputs/ref_graph/ref_graph.dbg"
+
+metagraph_exec: "metagraph" #type metagraph
+count_distribution_exec: "home/philipp/metagraph/metagraph/build/Debug/count_distribution"
+
+

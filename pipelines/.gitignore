@@ -1,0 +1,4 @@
+.snakemake/
+existing/
+fasta_data/
+outputs/
