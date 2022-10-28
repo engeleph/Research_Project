@@ -16,6 +16,6 @@ splitted_data: "/home/philipp/readfish_modified/pipelines/workflows/data/ref_dat
 ref_graph_path: "/home/philipp/readfish_modified/pipelines/workflows/outputs/ref_graph/ref_graph.dbg"
 
 metagraph_exec: "metagraph" #type metagraph
-count_distribution_exec: "home/philipp/metagraph/metagraph/build/Debug/count_distribution"
+count_distribution_exec: "metagraph "
 
 

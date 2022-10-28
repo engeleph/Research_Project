@@ -12,7 +12,7 @@ import compute_graph_stats
 # load config
 configfile: "snakemake_config.yaml" # command line can overwrite these parameters
 
-base_output_dir = config["base_output_dir"] # base directory where merged graphs are in
+base_output_dir = config["output_dir"] # base directory where merged graphs are in
 ref_graph_path = config["ref_graph_path"] # where the reference graph is, or where it should be built to
 ref_data = config["splitted_data"]
 output_dir = config["output_dir"]
@@ -46,8 +46,7 @@ output_files = expand(
 # default rule
 rule all:
     input:
-        completeness = os.path.join(base_output_dir,"{unique_id}","completeness.txt"),
-        counts_hist = os.path.join(base_output_dir, "{unique_id}","counts_hist.pdf"),
+        output_files
 
 rule clean:
     message: "Cleaning statistics in subdirectories of {merged_graph_dirs:q}"
@@ -67,21 +66,21 @@ rule compute_counts:
     input: 
         ref_graph = ref_graph_path, 
         #merged_graph = get_output_path(base_output_dir, "{unique_id}") / "merged_{unique_id}.bfdbg",
-        merged_graph = os.path.join(base_output_dir,"{unique_id}","merged_{unique_id}.bfdbg")
+        merged_graph = os.path.join(base_output_dir,"pipeline_{unique_id}","merged_{unique_id}.dbg")
     output: 
-        counts = os.path.join(base_output_dir, "{unique_id}","counts.txt"),
+        counts = os.path.join(base_output_dir, "pipeline_{unique_id}","counts.txt"),
     message: "Computing counts for graph '{input.merged_graph}'"
-    benchmark: os.path.join(base_output_dir, "{unique_id","compute_counts.tsv")
+    benchmark: os.path.join(base_output_dir, "pipeline_{unique_id","compute_counts.tsv")
     shell: "{count_distribution_exec} {input.ref_graph:q} {input.merged_graph:q} > {output.counts:q}"
 
 # compute completion rate and histogram over counts vs ref counts
 rule compute_stats:
     input: 
         ref_graph = ref_graph_path, 
-        counts = os.path.join(base_output_dir,"{unique_id}","counts.txt"),
+        counts = os.path.join(base_output_dir,"pipeline_{unique_id}","counts.txt"),
     output: 
-        completeness = os.path.join(base_output_dir,"{unique_id}","completeness.txt"),
-        counts_hist = os.path.join(base_output_dir, "{unique_id}","counts_hist.pdf"),
+        completeness = os.path.join(base_output_dir,"pipeline_{unique_id}","completeness.txt"),
+        counts_hist = os.path.join(base_output_dir, "pipeline_{unique_id}","counts_hist.pdf"),
     params:
         output_dir = lambda wildcards: os.path.join(base_output_dir, f"{wildcards.unique_id}")
     message: "Computing stats for directory '{params.output_dir}'"
